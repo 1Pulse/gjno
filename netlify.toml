@@ -1,0 +1,7 @@
+[build]
+  functions = "functions" # Points to the folder with your serverless functions
+  publish = "public"      # This is where your static files (HTML, CSS, JS) will be located
+
+[dev]
+  functions = "functions" # Folder with serverless functions for local development
+  publish = "public"      # Static files for local development
