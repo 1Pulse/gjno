@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors()); // Enable CORS for all origins (can be restricted to a specific origin later)
 
 // Set up static folder for images
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/functions', express.static(path.join(__dirname, 'functions')));
 
 // MongoDB setup
 mongoose.connect('mongodb+srv://mduduzindlovu02:maqGSNqbUEhh6KFJ@notesmanagerv2.1gdnh.mongodb.net/?', { 
@@ -40,7 +40,7 @@ const Post = mongoose.model('Post', postSchema);
 // Set up file upload
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadDir = path.join(__dirname, 'uploads');
+    const uploadDir = path.join(__dirname, 'functions');
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir);
     }
@@ -66,7 +66,7 @@ app.get('/api/posts', async (req, res) => {
 app.post('/api/posts', upload.single('image'), async (req, res) => {
   try {
     const { name, surname, description, latitude, longitude } = req.body;
-    const imageUrl = req.file ? `/uploads/${req.file.filename}` : ''; // Save image URL
+    const imageUrl = req.file ? `/functions/${req.file.filename}` : ''; // Save image URL
     const newPost = new Post({ name, surname, description, latitude, longitude, imageUrl, comments: [] });
 
     await newPost.save();
